@@ -16,6 +16,13 @@ module.exports = {
             '@' : path.resolve(__dirname, 'src'),
         }
     },
+    devServer: {
+        port: 4001,
+        watchContentBase: true, //In some cases, this does not work. For example, when using Network File System (NFS).
+        // watchOptions: { // For such case ^^^ use this
+        //     poll: true
+        // }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './index.html' //If no template specified, empty index.html is created
