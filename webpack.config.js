@@ -9,6 +9,9 @@ module.exports = {
         path: path.resolve(__dirname, 'out'),
         filename: '[name].[hash].bundle.js'
     },
+    resolve: {
+        extensions: ['.js', '.json', '.css'] //Helps to remove extensions when importing
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './index.html' //If no template specified, empty index.html is created
