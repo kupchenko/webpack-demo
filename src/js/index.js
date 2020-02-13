@@ -3,4 +3,4 @@ import '@styles/content'
 
 const user = new User('Dmitrii', 23);
 
-console.log(user);
+console.log(user.toString());
