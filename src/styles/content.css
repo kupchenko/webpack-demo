@@ -1,0 +1,10 @@
+.container {
+    padding-top: 2rem;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: red;
+}

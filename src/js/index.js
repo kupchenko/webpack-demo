@@ -1,4 +1,5 @@
 import User from './user'
+import '../styles/content.css'
 
 const user = new User('Dmitrii', 23);
 
