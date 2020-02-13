@@ -10,7 +10,11 @@ module.exports = {
         filename: '[name].[hash].bundle.js'
     },
     resolve: {
-        extensions: ['.js', '.json', '.css'] //Helps to remove extensions when importing
+        extensions: ['.js', '.json', '.css'], //Helps to remove extensions when importing
+        alias: {
+            '@styles' : path.resolve(__dirname, 'src/styles'),
+            '@' : path.resolve(__dirname, 'src'),
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({
