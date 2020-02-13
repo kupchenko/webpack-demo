@@ -3,14 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //Copies html files in
 const {CleanWebpackPlugin} = require('clean-webpack-plugin'); //Cleans files from previous build
 
 module.exports = {
-    entry: './src/index.js',
+    context: path.resolve(__dirname, 'src'), //To avoid using {... entry: './src/index.js' ...}
+    entry: './index.js',
     output: {
         path: path.resolve(__dirname, 'out'),
         filename: '[name].[hash].bundle.js'
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html' //If no template specified, empty index.html is created
+            template: './index.html' //If no template specified, empty index.html is created
         }),
         new CleanWebpackPlugin()
     ]
