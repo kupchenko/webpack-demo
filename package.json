@@ -1,0 +1,21 @@
+{
+  "name": "webpack-demo",
+  "version": "1.0.0",
+  "description": "First webpack demo",
+  "repository": "test",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "build-prod": "webpack --mode production"
+  },
+  "keywords": [
+    "webpack",
+    "demo"
+  ],
+  "author": "Dmitrii Kupchenko <kupchenko.work@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}
