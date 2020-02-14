@@ -28,6 +28,23 @@ const optimization = () => {
     return config;
 };
 
+function jsLoader() {
+    const loaders = [{
+        loader: 'babel-loader',
+        options: {
+            presets: [
+                '@babel/preset-env' // is a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment(s).
+            ]
+        }
+    }];
+
+    if (isDev()) {
+        loaders.push('eslint-loader')
+    }
+
+    return loaders
+}
+
 module.exports = {
     context: path.resolve(__dirname, 'src'), //To avoid using {... entry: './src/index.js' ...}
     entry: [
@@ -92,14 +109,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/preset-env' // is a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment(s).
-                        ]
-                    }
-                }
+                use: jsLoader()
             }
         ]
     }
