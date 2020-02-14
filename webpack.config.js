@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //Copies html files into output folder and inserts JS files
 const {CleanWebpackPlugin} = require('clean-webpack-plugin'); //Cleans files from previous build
-const CopyWebpackPlugin = require('copy-webpack-plugin'); //Cleans files from previous build
+const CopyWebpackPlugin = require('copy-webpack-plugin'); //Copies specified files into output dir
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //Extracts CSS into separate files. It creates a CSS file per JS file which contains CSS.
 
 
 const outputFolder = 'out';
@@ -37,14 +38,18 @@ module.exports = {
                 from: path.resolve(__dirname, 'src/img/favicon.ico'),
                 to: path.resolve(__dirname, outputFolder)
             }
-        ])
+        ]),
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash].css'
+        })
     ],
     module: {
         rules: [
             {
                 test: /\.css$/,
                 use: [ // Webpack process the last loader first (e.g. styles-loader). Starts from end
-                    'style-loader', // Adds styles into <style> in header
+                    // 'style-loader', // Adds styles into <style> in header
+                    MiniCssExtractPlugin.loader,
                     'css-loader' // Responsible for compiling "import './blabla.styles' " syntax
                 ]
             }
