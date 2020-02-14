@@ -4,8 +4,11 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin'); //Cleans files fro
 const CopyWebpackPlugin = require('copy-webpack-plugin'); //Copies specified files into output dir
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //Extracts CSS into separate files. It creates a CSS file per JS file which contains CSS.
 
-
 const outputFolder = 'out';
+const env = process.env.NODE_ENV;
+const isDev = () => env === 'dev';
+const isProd = () => env === 'prod';
+console.log(`Running with env: '${env}'`);
 
 module.exports = {
     context: path.resolve(__dirname, 'src'), //To avoid using {... entry: './src/index.js' ...}
@@ -23,6 +26,7 @@ module.exports = {
     },
     devServer: {
         port: 4001,
+        hot: isDev(),
         watchContentBase: true, //In some cases, this does not work. For example, when using Network File System (NFS).
         // watchOptions: { // For such case ^^^ use this
         //     poll: true
@@ -49,7 +53,13 @@ module.exports = {
                 test: /\.css$/,
                 use: [ // Webpack process the last loader first (e.g. styles-loader). Starts from end
                     // 'style-loader', // Adds styles into <style> in header
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: isDev(), //Hot Module Replacements
+                            reloadAll: true
+                        }
+                    },
                     'css-loader' // Responsible for compiling "import './blabla.styles' " syntax
                 ]
             }
