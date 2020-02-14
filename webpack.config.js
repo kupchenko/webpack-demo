@@ -30,7 +30,10 @@ const optimization = () => {
 
 module.exports = {
     context: path.resolve(__dirname, 'src'), //To avoid using {... entry: './src/index.js' ...}
-    entry: './js/index.js', // The entry point JS
+    entry: [
+        '@babel/polyfill', // 'regeneratorRuntime is not defined' is thrown
+        './js/index.js' // The entry point JS
+    ],
     output: {
         path: path.resolve(__dirname, outputFolder),
         filename: '[name].[hash].bundle.js'
@@ -84,6 +87,18 @@ module.exports = {
                     },
                     'css-loader' // Responsible for compiling "import './blabla.styles' " syntax
                 ]
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env' // is a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment(s).
+                        ]
+                    }
+                }
             }
         ]
     }
