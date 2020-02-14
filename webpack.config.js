@@ -10,7 +10,6 @@ const outputFolder = 'out';
 const env = process.env.NODE_ENV;
 const isDev = () => env === 'dev';
 const isProd = () => env === 'prod';
-console.log(`Running with env: '${env}'`);
 
 const optimization = () => {
     const config = {
