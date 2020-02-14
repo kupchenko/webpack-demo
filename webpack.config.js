@@ -45,6 +45,7 @@ module.exports = {
             '@': path.resolve(__dirname, 'src'),
         }
     },
+    devtool: isDev() ? 'source-map' : '',
     optimization: optimization(),
     devServer: {
         port: 4001,
