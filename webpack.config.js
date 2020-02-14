@@ -1,19 +1,23 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //Copies html files into output folder and inserts JS files
 const {CleanWebpackPlugin} = require('clean-webpack-plugin'); //Cleans files from previous build
+const CopyWebpackPlugin = require('copy-webpack-plugin'); //Cleans files from previous build
+
+
+const outputFolder = 'out';
 
 module.exports = {
     context: path.resolve(__dirname, 'src'), //To avoid using {... entry: './src/index.js' ...}
     entry: './js/index.js',
     output: {
-        path: path.resolve(__dirname, 'out'),
+        path: path.resolve(__dirname, outputFolder),
         filename: '[name].[hash].bundle.js'
     },
     resolve: {
         extensions: ['.js', '.json', '.css'], //Helps to remove extensions when importing
         alias: {
-            '@styles' : path.resolve(__dirname, 'src/styles'),
-            '@' : path.resolve(__dirname, 'src'),
+            '@styles': path.resolve(__dirname, 'src/styles'),
+            '@': path.resolve(__dirname, 'src'),
         }
     },
     devServer: {
@@ -27,7 +31,13 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './index.html' //If no template specified, empty index.html is created
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, 'src/img/favicon.ico'),
+                to: path.resolve(__dirname, outputFolder)
+            }
+        ])
     ],
     module: {
         rules: [
